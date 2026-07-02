@@ -122,7 +122,7 @@ re_linkermap = {
     'FILL': re.compile(
         r'^\s(?:\*fill\*)(?:\s+(?P<address>0[xX][0-9a-fA-F]+))(?:\s+(?P<size>0[xX][0-9a-fA-F]+))$'),  # noqa
     'SYMBOLONLY':
-        re.compile(r'^\s(?P<name>[._]\S+)$'),
+        re.compile(r'^\s(?P<name>\S+)$'),
     'SYMBOLDETAIL': re.compile(
         r'^\s+(?:\s+(?P<address>0[xX][0-9a-fA-F]+))(?:\s+(?P<size>0[xX][0-9a-fA-F]+))\s+(?P<filefolder>.*/)?(?P<file>:|.+?(?:\.[^.\)]*))?(?:\((?P<file2>\S*)\))?$'),  # noqa
     'SECTIONDETAIL': re.compile(
@@ -275,8 +275,7 @@ def linkermap_name_process(name, sm, checksection=True):
     if name.startswith('*fill*'):
         return '*fill*'
     if not name.startswith('.'):
-        logging.error('Skipping : {0}'.format(name.rstrip()))
-        return None
+        name = '.' + name
     name = sm.memory_map.aliases.encode(name)
     if checksection is False:
         return name

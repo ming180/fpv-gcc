@@ -284,6 +284,8 @@ class GCCMemoryMap(SizeNTree):
                 continue
             if node.objfile not in of:
                 of.append(node.objfile)
+        if None in of:
+            of.remove(None)
         return of
 
     def arfile_objfiles(self, arfile):
@@ -309,6 +311,8 @@ class GCCMemoryMap(SizeNTree):
                 continue
             if node.arfile not in af:
                 af.append(node.arfile)
+        if None in af:
+            af.remove(None)
         return af
 
     @property
